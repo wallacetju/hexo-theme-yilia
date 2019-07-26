@@ -15,7 +15,17 @@
           <a class="article-more-a" href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %> >></a>
         <% } %>
       <% } else { %>
-        <%- post.content %>
+<% if(post.toc == true){ %>
+    <div id="toc-div" class="toc-article" <% if (post.encrypt == true) { %>style="display:none" <% } %>>
+        <strong class="toc-title">Index</strong>
+        <% if (post.encrypt == true) { %>
+            <%- toc(post.origin, {list_number: true}) %>
+        <% } else { %>
+            <%- toc(post.content, {list_number: true}) %>
+        <% } %>
+    </div>
+<% } %>        
+<%- post.content %>
       <% } %>
 
       <% if ((theme.reward_type === 2 || (theme.reward_type === 1 && post.reward)) && !index){ %>
